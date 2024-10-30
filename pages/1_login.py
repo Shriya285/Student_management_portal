@@ -1,6 +1,6 @@
 import streamlit as st
 from utils.auth import is_user_registered
-
+#updated
 def login():
     st.title("Login Page")
     srn = st.text_input("SRN")
