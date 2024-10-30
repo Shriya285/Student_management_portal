@@ -1,22 +1,21 @@
 import streamlit as st
-from utils.auth import register_user, is_user_registered
+from utils.auth import is_user_registered
 
-st.title("Login or Register")
+def login():
+    st.title("Login Page")
+    srn = st.text_input("SRN")
+    password = st.text_input("Password", type='password')
 
-# Login section
-with st.form("login_form"):
-    st.subheader("Login")
-    srn = st.text_input("Enter SRN")
-    password = st.text_input("Enter Password", type='password')
-    login_button = st.form_submit_button("Login")
+    if st.button("Login"):
+        user=is_user_registered(srn, password)
+        if user:
+            st.session_state["logged_in"] = True
+            st.session_state["username"] = user[0]
+            st.success("Sucess")
+            # st.experimental_rerun()  # Redirect to the dashboard after showing the message
+        else:
+            st.error("Invalid SRN or password.")
 
-if login_button:
-    user = is_user_registered(srn, password)
-    if user:
-        st.session_state["logged_in"] = True
-        st.session_state["username"] = user[0]
-        st.success(f"Welcome, {user[0]}!")
-        st.experimental_rerun()  # Reload to redirect to dashboard
-    else:
-        st.error("Invalid SRN or password.")
 
+if __name__ == "__main__":
+    login()

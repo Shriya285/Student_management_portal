@@ -1,6 +1,7 @@
 import mysql.connector as mc
 import streamlit as st
 
+# Database connection details
 DB_CONFIG = {
     'host': 'localhost',
     'user': 'root',
@@ -10,6 +11,7 @@ DB_CONFIG = {
 }
 
 def create_connection():
+    """Create a database connection."""
     try:
         connection = mc.connect(**DB_CONFIG)
         if connection.is_connected():
